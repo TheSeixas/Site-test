@@ -31,19 +31,19 @@ window.addEventListener('DOMContentLoaded',()=>{
         if(link.children[0].textContent == 'Blog'){
 
             link.children[0].addEventListener('click',()=>{
-                tirarDisplay();
+                tirarDisplay(link);
                 document.querySelectorAll('.div-blog')[0].style.display="flex";
                 divWrap.style.display="flex";
             })
         }else if(link.children[0].textContent =='About'){
             link.children[0].addEventListener('click',()=>{
-                tirarDisplay();
+                tirarDisplay(link);
                 document.querySelectorAll('.div-about')[0].style.display="flex";
                 divWrap.style.display="flex";
             })
         }else if(link.children[0].textContent =='Contacts'){
+            tirarDisplay(link);
             link.children[0].addEventListener('click',()=>{
-                tirarDisplay();
                 document.querySelectorAll('.div-contacts')[0].style.display="flex";
                 divWrap.style.display="flex";
             })
@@ -54,16 +54,21 @@ window.addEventListener('DOMContentLoaded',()=>{
     function voltarInicio(){
         let home = document.querySelectorAll('.linksNav')[0];
         home.addEventListener('click',()=>{
-            tirarDisplay();
+            tirarDisplay(home);
         })
     }
     //tira o display das divs dos links de navegação
-    function tirarDisplay(){
-        let divs = document.querySelectorAll('.divs-navigation')[0];
-        divs.style.display="none";
-        for( i = 0; i < 3; i++){
-            var sonDiv = divs.children[i];
-            sonDiv.style.display='none';
+    function tirarDisplay( element ){
+        let dp = document.querySelectorAll('.divs-navigation')[0];
+        if( element.children[0].innerHTML == 'Home'){
+            dp.style.display = 'none';
+            for(i=0; i<3; i++){
+                dp.children[i].style.display = 'none';
+            }
+        }else{
+            for(i=0; i<3; i++){
+                dp.children[i].style.display = 'none';
+            }
         }
     }
     //mostra a div refente ao link de navegação
@@ -111,8 +116,6 @@ window.addEventListener('DOMContentLoaded',()=>{
                 }
                 tirarClasse(element,cor);
             }else{
-                console.log(element.innerHTML)
-                console.log(element.children[0])
                 htmlOfLink = element.children[0].innerHTML;
                 if (arrayNavs.includes(htmlOfLink)){
                     if( index == 0 ){
