@@ -11,7 +11,9 @@ window.addEventListener('DOMContentLoaded',()=>{
     var cor;
     var corBody;
     var errorComentary = 'false';
-    let allComentarys = [
+    var arrayNavs = ['Blog','Home','About','Contacts'];
+    var arraysDivs = ['div-blog','div-about','div-contacts'];
+    var allComentarys = [
         {nameUser: 'Fulano de Tal', userComentary: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda vitae velit officia ...'},
         {nameUser: 'Fulano de Tal', userComentary:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda vitae velit officia ...'}   
     ];
@@ -71,31 +73,35 @@ window.addEventListener('DOMContentLoaded',()=>{
     //muda o estilo ao passar o mouse por cima
     function mudarEstilo( element ){
         let index = 0;
-        let arrayNavs = ['Blog','Home','About','Contacts'];
-        let arraysDivs = ['div-blog','div-about','div-contacts'];
         let indexLogo = 0;
         let htmlOfLink;
         element.addEventListener('mouseenter',()=>{
             //faz o efeito das cores da logo e dos links de navegação
-            if (element.innerHTML == 'Blog'){
+            if (element.innerHTML == 'Blog' || element.innerHTML == 'Seja bem-vindo!'){
                 if( indexLogo == 0 ){
                     element.classList.add('cYellow');
+                    element.style.color = 'white';
                     cor = 'cYellow';
 
                 }else if( indexLogo == 1){
                     element.classList.add('cRed');
+                    element.style.color = 'white';
                     cor = 'cRed';
                 }else if( indexLogo == 2){
                     element.classList.add('cGreen');
+                    element.style.color = 'white';
                     cor = 'cGreen';
                 }else if( indexLogo == 3){
                     element.classList.add('cBlue');
+                    element.style.color = 'white';
                     cor = 'cBlue';
                 }else if( indexLogo == 4){
                     element.classList.add('cOrange');
+                    element.style.color = 'white';
                     cor = 'cOrange';
                 }else if( indexLogo == 5){
                     element.classList.add('cPink');
+                    element.style.color = 'white';
                     cor = 'cPink';
                 }
                 if( indexLogo == 5 ){
@@ -105,6 +111,8 @@ window.addEventListener('DOMContentLoaded',()=>{
                 }
                 tirarClasse(element,cor);
             }else{
+                console.log(element.innerHTML)
+                console.log(element.children[0])
                 htmlOfLink = element.children[0].innerHTML;
                 if (arrayNavs.includes(htmlOfLink)){
                     if( index == 0 ){
@@ -193,16 +201,15 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
     function tirarClasse(element, cor){
         let classContent = element.classList.value.split(' ');
-        console.log(cor)
-        console.log(classContent.includes(cor));
         element.addEventListener('mouseleave',()=>{
             if(element.childElementCount >= 1 ){
-                element.children[0].style.color='deepskyblue';
+               element.children[0].style.color='deepskyblue';
                 bodyContainer.classList.remove(corBody);
                 
             }
             element.classList.remove(cor)
             document.querySelectorAll('.logotype')[0].style.color='deepskyblue';
+            document.querySelectorAll('.title')[0].style.color='deepskyblue';
             let li = document.querySelectorAll('.linksNav');
             for( i = 0; i < 4; i++){
                 li[i].children[0].style.color='deepskyblue';
