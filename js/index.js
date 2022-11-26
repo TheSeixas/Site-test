@@ -24,30 +24,138 @@ window.addEventListener('DOMContentLoaded',()=>{
     esconderTexto(distacs, 56);
     esconderTexto(dataComent, 154);
     getDataUser();
+    var settings = {
+        displayFlex : (li, divClass)=>{
+            let divWrap = document.querySelectorAll('.divs-navigation')[0];
+            li.children[0].addEventListener('click',()=>{
+                tirarDisplay(li);
+                document.querySelectorAll(divClass)[0].style.display="flex";
+                divWrap.style.display="flex";
+            })
+        },
+        changeColor: (element,cor,index=false, indexLogo=false)=>{
+            if(indexLogo >= 0){
+                if( indexLogo == 0 ){
+                    element.classList.add('cYellow');
+                    element.style.color = 'white';
+                    cor = 'cYellow';
+    
+                }else if( indexLogo == 1){
+                    element.classList.add('cRed');
+                    element.style.color = 'white';
+                    cor = 'cRed';
+                }else if( indexLogo == 2){
+                    element.classList.add('cGreen');
+                    element.style.color = 'white';
+                    cor = 'cGreen';
+                }else if( indexLogo == 3){
+                    element.classList.add('cBlue');
+                    element.style.color = 'white';
+                    cor = 'cBlue';
+                }else if( indexLogo == 4){
+                    element.classList.add('cOrange');
+                    element.style.color = 'white';
+                    cor = 'cOrange';
+                }else if( indexLogo == 5){
+                    element.classList.add('cPink');
+                    element.style.color = 'white';
+                    cor = 'cPink';
+                }
+
+            }else if(index >= 0){
+                if( index == 0 ){
+                    element.classList.add('cYellow');
+                    cor = 'cYellow';
+
+                }else if( index == 1){
+                    element.classList.add('cRed');
+                    cor = 'cRed';
+                }else if( index == 2){
+                    element.classList.add('cGreen');
+                    cor = 'cGreen';
+                }else if( index == 3){
+                    element.classList.add('cBlue');
+                    cor = 'cBlue';
+                }else if( index == 4){
+                    element.classList.add('cOrange');
+                    cor = 'cOrange';
+                }else if( index == 5){
+                    element.classList.add('cPink');
+                    cor = 'cPink';
+                }
+            }
+            tirarClasse(element,cor);
+        },
+        changeColorBg:(element,indexBody)=>{
+            let index = indexBody;
+            console.log(index)
+            if( index == 0 ){
+                element.classList.add('cYellow');
+                bodyContainer.classList.add('bYellow')
+                corBody = 'bYellow';
+                cor = 'cYellow';
+
+            }else if( index == 1){
+                element.classList.add('cRed');
+                bodyContainer.classList.add('bRed')
+                corBody = 'bRed';
+                cor = 'cRed';
+            }else if( index == 2){
+                element.classList.add('cGreen');
+                bodyContainer.classList.add('bGreen')
+                corBody = 'bGreen';
+                cor = 'cGreen';
+            }else if( index == 3){
+                element.classList.add('cBlue');
+                bodyContainer.classList.add('bBlue')
+                corBody = 'bBlue';
+                cor = 'cBlue';
+            }else if( index == 4){
+                element.classList.add('cOrange');
+                bodyContainer.classList.add('bOrange')
+                corBody = 'bOrange';
+                cor = 'cOrange';
+            }else if( index == 5){
+                element.classList.add('cPink');
+                bodyContainer.classList.add('bPink')
+                corBody = 'bPink';
+                cor = 'cPink';
+            }
+            tirarClasse(element,cor, corBody);
+        },
+
+    }
+    var indexBody=0;
+    for(i=0; i<3; i++){
+        let divs = document.querySelectorAll('.'+arraysDivs[i]);
+        divs[0].addEventListener('mouseenter',()=>{
+            console.log(divs[0])
+            document.querySelectorAll('.logotype')[0].style.color='black';
+            let li = document.querySelectorAll('.linksNav');
+            for( i = 0; i < 4; i++){
+                li[i].children[0].style.color='black';
+            }
+            settings.changeColorBg(divs[0], indexBody); 
+            if( indexBody == 5 ){
+                indexBody = 0;
+            }else{
+                indexBody++;
+            }
+        });
+    }
+    //abre a div de navegação referente ao link 
     for( i=0; i < 4; i++){
         let linksNav = document.querySelectorAll('.linksNav');
         let link = linksNav[i]; 
         let divWrap = document.querySelectorAll('.divs-navigation')[0];
         if(link.children[0].textContent == 'Blog'){
-
-            link.children[0].addEventListener('click',()=>{
-                tirarDisplay(link);
-                document.querySelectorAll('.div-blog')[0].style.display="flex";
-                divWrap.style.display="flex";
-            })
+            settings.displayFlex(link, '.div-blog');
         }else if(link.children[0].textContent =='About'){
-            link.children[0].addEventListener('click',()=>{
-                tirarDisplay(link);
-                document.querySelectorAll('.div-about')[0].style.display="flex";
-                divWrap.style.display="flex";
-            })
+            settings.displayFlex(link, '.div-about');
         }else if(link.children[0].textContent =='Contacts'){
-            tirarDisplay(link);
-            link.children[0].addEventListener('click',()=>{
-                document.querySelectorAll('.div-contacts')[0].style.display="flex";
-                divWrap.style.display="flex";
-            })
+            settings.displayFlex(link, '.div-contacs');
         }
+        console.log(link)
         mudarEstilo(link);
     }
     //volta para o inicio e esconde as div de navegação q tiver aberta
@@ -77,74 +185,27 @@ window.addEventListener('DOMContentLoaded',()=>{
     }
     //muda o estilo ao passar o mouse por cima
     function mudarEstilo( element ){
-        let index = 0;
-        let indexLogo = 0;
-        let htmlOfLink;
+        let index=0;
+        let indexLogo=0;
         element.addEventListener('mouseenter',()=>{
+            let htmlOfLink;
             //faz o efeito das cores da logo e dos links de navegação
             if (element.innerHTML == 'Blog' || element.innerHTML == 'Seja bem-vindo!'){
-                if( indexLogo == 0 ){
-                    element.classList.add('cYellow');
-                    element.style.color = 'white';
-                    cor = 'cYellow';
-
-                }else if( indexLogo == 1){
-                    element.classList.add('cRed');
-                    element.style.color = 'white';
-                    cor = 'cRed';
-                }else if( indexLogo == 2){
-                    element.classList.add('cGreen');
-                    element.style.color = 'white';
-                    cor = 'cGreen';
-                }else if( indexLogo == 3){
-                    element.classList.add('cBlue');
-                    element.style.color = 'white';
-                    cor = 'cBlue';
-                }else if( indexLogo == 4){
-                    element.classList.add('cOrange');
-                    element.style.color = 'white';
-                    cor = 'cOrange';
-                }else if( indexLogo == 5){
-                    element.classList.add('cPink');
-                    element.style.color = 'white';
-                    cor = 'cPink';
-                }
+                settings.changeColor(element,cor,false,indexLogo )
                 if( indexLogo == 5 ){
                     indexLogo = 0;
                 }else{
                     indexLogo++;
                 }
-                tirarClasse(element,cor);
             }else{
                 htmlOfLink = element.children[0].innerHTML;
                 if (arrayNavs.includes(htmlOfLink)){
-                    if( index == 0 ){
-                        element.classList.add('cYellow');
-                        cor = 'cYellow';
-    
-                    }else if( index == 1){
-                        element.classList.add('cRed');
-                        cor = 'cRed';
-                    }else if( index == 2){
-                        element.classList.add('cGreen');
-                        cor = 'cGreen';
-                    }else if( index == 3){
-                        element.classList.add('cBlue');
-                        cor = 'cBlue';
-                    }else if( index == 4){
-                        element.classList.add('cOrange');
-                        cor = 'cOrange';
-                    }else if( index == 5){
-                        element.classList.add('cPink');
-                        cor = 'cPink';
-                    }
-                    if( index == 5 ){
-                        index = 0;
-                    }else{
-                        index++;
-                    }
-                    
-                    tirarClasse(element,cor);
+                    settings.changeColor(element,cor,index,-1);        
+                }
+                if( index == 5 ){
+                    index = 0;
+                }else{
+                    index++;
                 }
             }
             //deixa a corda das letras da navegação branca
@@ -152,72 +213,49 @@ window.addEventListener('DOMContentLoaded',()=>{
                 element.children[0].style.color='white';
             }
             //faz o efeito de troca dd cores das divs de navegação e do body
+            /*
             if( arraysDivs.includes(element.classList[0])){
+                console.log(element)
                 document.querySelectorAll('.logotype')[0].style.color='black';
                 let li = document.querySelectorAll('.linksNav');
                 for( i = 0; i < 4; i++){
                     li[i].children[0].style.color='black';
                 }
-                if( index == 0 ){
-                    console.log(index)
-                    element.classList.add('cYellow');
-                    bodyContainer.classList.add('bYellow');
-                    cor = 'cYellow';
-                    corBody = 'bYellow';
-    
-                }else if( index == 1){
-                    element.classList.add('cRed');
-                    bodyContainer.classList.add('bRed');
-                    cor = 'cRed';
-                    corBody = 'bRed';
-                }else if( index == 2){
-                    element.classList.add('cGreen');
-                    bodyContainer.classList.add('bGreen');
-                    cor = 'cGreen';
-                    corBody = 'bGreen';
-                }else if( index == 3){
-                    element.classList.add('cBlue');
-                    bodyContainer.classList.add('bBlue');
-                    cor = 'cBlue';
-                    corBody ='bBlue';
-                }else if( index == 4){
-                    element.classList.add('cOrange');
-                    bodyContainer.classList.add('bOrange');
-                    cor = 'cOrange';
-                    corBody = 'bOrange';
-                }else if( index == 5){
-                    element.classList.add('cPink');
-                    bodyContainer.classList.add('bPink');
-                    cor = 'cPink';
-                    corBody = 'bPink';
-                }
-                if( index == 5 ){
-                    index = 0;
+                settings.changeColorBg(element, indexBody);
+                if( indexBody == 5 ){
+                    indexBody = 0;
                 }else{
-                    index++;
+                    indexBody++;
                 }
                 
-                tirarClasse(element,cor);
             }
-            /* */ 
+            */ 
         });
     }
-    function tirarClasse(element, cor){
-        let classContent = element.classList.value.split(' ');
+    function tirarClasse(element, cor, corBody=false){
+        let classBody =['bGreen','bYellow','bRed','bOrange','bBlue','bPink'];
+        console.log()
         element.addEventListener('mouseleave',()=>{
-            if(element.childElementCount >= 1 ){
-               element.children[0].style.color='deepskyblue';
-                bodyContainer.classList.remove(corBody);
+            if(element == document.querySelectorAll('.logotype')[0]){
+                element.classList.remove(cor);
+                document.querySelectorAll('.logotype')[0].style.color='deepskyblue';
+            }else if(arrayNavs.includes(element.children[0].innerHTML) ){
+                console.log(element.children[0].innerHTML)
+                element.children[0].style.color='deepskyblue';
+                element.classList.remove(cor)
                 
+            }else if(classBody.includes(corBody)){
+                console.log(corBody)
+                document.querySelectorAll('.logotype')[0].style.color='deepskyblue';
+                document.querySelectorAll('.title')[0].style.color='deepskyblue';
+                let li = document.querySelectorAll('.linksNav');
+                for( i = 0; i < 4; i++){
+                    li[i].children[0].style.color='deepskyblue';
+                }
+                bodyContainer.classList.remove(corBody);
+                element.classList.remove(cor);
             }
-            element.classList.remove(cor)
-            document.querySelectorAll('.logotype')[0].style.color='deepskyblue';
-            document.querySelectorAll('.title')[0].style.color='deepskyblue';
-            let li = document.querySelectorAll('.linksNav');
-            for( i = 0; i < 4; i++){
-                li[i].children[0].style.color='deepskyblue';
-            }
-
+            
         })
     }
     //Grava o nome e o comentário do usuário
@@ -267,7 +305,6 @@ window.addEventListener('DOMContentLoaded',()=>{
 //função coloca elipsis ao final da quantidade de caracteres que deseja exibir de um texto
 function esconderTexto(el, maxL){
     let quantFilhos = el.length;
-    console.log(el)
     for( i=0; i < quantFilhos; i++){
         let filho = el[i].children[0];
         let textLength = filho.innerHTML.length;
