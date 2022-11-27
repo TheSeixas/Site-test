@@ -161,11 +161,15 @@ window.addEventListener('DOMContentLoaded',()=>{
         home.addEventListener('click',()=>{
             tirarDisplay(home);
         })
+        let logo = document.querySelectorAll('.logotype')[0];
+        logo.addEventListener('click',()=>{
+            tirarDisplay(logo);
+        })
     }
     //tira o display das divs dos links de navegação
     function tirarDisplay( element ){
         let dp = document.querySelectorAll('.divs-navigation')[0];
-        if( element.children[0].innerHTML == 'Home'){
+        if(element.classList[0] == 'logotype'|| element.children[0].innerHTML == 'Home'){
             dp.style.display = 'none';
             for(i=0; i<3; i++){
                 dp.children[i].style.display = 'none';
@@ -176,7 +180,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             }
         }
     }
-    //mostra a div refente ao link de navegação
+    //mostra a div refente ao link de navegação.
     function mostrarDiv( element ){
 
     }
