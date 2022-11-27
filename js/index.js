@@ -88,7 +88,6 @@ window.addEventListener('DOMContentLoaded',()=>{
         },
         changeColorBg:(element,indexBody)=>{
             let index = indexBody;
-            console.log(index)
             if( index == 0 ){
                 element.classList.add('cYellow');
                 bodyContainer.classList.add('bYellow')
@@ -129,7 +128,6 @@ window.addEventListener('DOMContentLoaded',()=>{
     for(i=0; i<3; i++){
         let divs = document.querySelectorAll('.'+arraysDivs[i]);
         divs[0].addEventListener('mouseenter',()=>{
-            console.log(divs[0])
             document.querySelectorAll('.logotype')[0].style.color='black';
             let li = document.querySelectorAll('.linksNav');
             for( i = 0; i < 4; i++){
@@ -153,9 +151,8 @@ window.addEventListener('DOMContentLoaded',()=>{
         }else if(link.children[0].textContent =='About'){
             settings.displayFlex(link, '.div-about');
         }else if(link.children[0].textContent =='Contacts'){
-            settings.displayFlex(link, '.div-contacs');
+            settings.displayFlex(link, '.div-contacts');
         }
-        console.log(link)
         mudarEstilo(link);
     }
     //volta para o inicio e esconde as div de navegação q tiver aberta
@@ -212,40 +209,20 @@ window.addEventListener('DOMContentLoaded',()=>{
             if(element.childElementCount >= 1 ){
                 element.children[0].style.color='white';
             }
-            //faz o efeito de troca dd cores das divs de navegação e do body
-            /*
-            if( arraysDivs.includes(element.classList[0])){
-                console.log(element)
-                document.querySelectorAll('.logotype')[0].style.color='black';
-                let li = document.querySelectorAll('.linksNav');
-                for( i = 0; i < 4; i++){
-                    li[i].children[0].style.color='black';
-                }
-                settings.changeColorBg(element, indexBody);
-                if( indexBody == 5 ){
-                    indexBody = 0;
-                }else{
-                    indexBody++;
-                }
-                
-            }
-            */ 
         });
     }
     function tirarClasse(element, cor, corBody=false){
         let classBody =['bGreen','bYellow','bRed','bOrange','bBlue','bPink'];
-        console.log()
+        
         element.addEventListener('mouseleave',()=>{
             if(element == document.querySelectorAll('.logotype')[0]){
                 element.classList.remove(cor);
                 document.querySelectorAll('.logotype')[0].style.color='deepskyblue';
-            }else if(arrayNavs.includes(element.children[0].innerHTML) ){
-                console.log(element.children[0].innerHTML)
-                element.children[0].style.color='deepskyblue';
-                element.classList.remove(cor)
-                
+            }else if(element == document.querySelectorAll('.title')[0]){
+                element.classList.remove(cor);
+                document.querySelectorAll('.title')[0].style.color='deepskyblue';
             }else if(classBody.includes(corBody)){
-                console.log(corBody)
+                
                 document.querySelectorAll('.logotype')[0].style.color='deepskyblue';
                 document.querySelectorAll('.title')[0].style.color='deepskyblue';
                 let li = document.querySelectorAll('.linksNav');
@@ -254,6 +231,9 @@ window.addEventListener('DOMContentLoaded',()=>{
                 }
                 bodyContainer.classList.remove(corBody);
                 element.classList.remove(cor);
+            }else if(arrayNavs.includes(element.children[0].innerHTML) ){
+                element.children[0].style.color='deepskyblue';
+                element.classList.remove(cor)
             }
             
         })
@@ -317,6 +297,7 @@ function esconderTexto(el, maxL){
 
     }
 }
+//adiciona uma class que troca as cores
 function setStyle(element, index ){
     let colorAdd;
     if( index == 0 ){
