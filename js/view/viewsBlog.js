@@ -1,0 +1,1 @@
+let blogView = new BlogViews();

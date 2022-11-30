@@ -132,6 +132,7 @@ h1{
     position: absolute;
     top: 18%;
 }
+/*estilo padrao para as divs de navegação*/
 .div-blog, .div-about, .div-contacts{
     width: 100%;
     height: 100%;
@@ -139,12 +140,14 @@ h1{
     display: none;
     
 }
+/*Estilização div blog*/
 .div-blog{
     justify-content: space-around;
     flex-wrap: wrap;
-    background-color: cadetblue;
+    background-color: white;
     
 }
+/*estiliza os posts recentes*/
 .post-recents{
     width: 70%;
     height: 62%;
@@ -164,11 +167,6 @@ h1{
     padding: 2%;
     background-color:transparent;
 }
-/*
-.post:hover, .content-destac:hover{
-    background-color: transparent;
-    border: 1px solid rgb(6, 141, 146);
-} */
 .card-post{
     width: 100%;
     height: 90%;
@@ -198,6 +196,7 @@ h1{
     text-align: center;
     padding: 2%;
 }
+/*estiliza os destaques e os últimos comentarios*/
 .data-blog{
     width: 25%;
     height: 94%;
@@ -310,6 +309,7 @@ h1{
     font-weight: 500;
     color: black;
 }
+/*estiliza a caixa para o usuario comentar*/
 .comentarios{
     width: 70%;
     height: 30%;
@@ -371,9 +371,61 @@ h1{
     z-index: 1;
     border: 1px solid rgb(6, 141,146) ;
 }
+/*estilização da div about*/
 .div-about{
-    background-color: black;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+.container-about{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+}
+.title-about{
+    width: 80%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 3%
+}
+.title-about h2{
+    font-size: 3.4rem;
+}
+.about-jobs{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: aquamarine;
+}
+.about-me{
+    width: 45%;
+    height: 90%;
+    background-color: bisque;
+}
+.text-about{
+    width: 90%;
+    font-size: 1.35rem;
+    padding: 10%;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    text-align: justify;
+
+}
+.jobs{
+    width: 40%;
+    height: 90%;
+    background-color: blue;
+}
+/*estilização da div contacts*/
 .div-contacts{
     background-color: blueviolet;
 }

@@ -29,6 +29,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             let divWrap = document.querySelectorAll('.divs-navigation')[0];
             li.children[0].addEventListener('click',()=>{
                 tirarDisplay(li);
+                console.log('veio aqui')
                 document.querySelectorAll(divClass)[0].style.display="flex";
                 divWrap.style.display="flex";
             })
@@ -141,20 +142,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             }
         });
     }
-    //abre a div de navegação referente ao link 
-    for( i=0; i < 4; i++){
-        let linksNav = document.querySelectorAll('.linksNav');
-        let link = linksNav[i]; 
-        let divWrap = document.querySelectorAll('.divs-navigation')[0];
-        if(link.children[0].textContent == 'Blog'){
-            settings.displayFlex(link, '.div-blog');
-        }else if(link.children[0].textContent =='About'){
-            settings.displayFlex(link, '.div-about');
-        }else if(link.children[0].textContent =='Contacts'){
-            settings.displayFlex(link, '.div-contacts');
-        }
-        mudarEstilo(link);
-    }
+    
     //volta para o inicio e esconde as div de navegação q tiver aberta
     function voltarInicio(){
         let home = document.querySelectorAll('.linksNav')[0];
