@@ -16,8 +16,6 @@ class BlogController{
         
         //trecho acima adiciona funcionalidade ao clicar na logo
         this.addEventsInLinksNav();
-
-     console.log(this._divsNavigation)
     }
     //método adiciona um evento ao elemento
     addEvent(element, event,fn){
@@ -27,7 +25,6 @@ class BlogController{
     //aqui o será aplicado evento num determinado elemento e mudança do valor do display
     setEventAndDisplay(element, link, event, valueDisplay){
         this.addEvent(link,event,()=>{
-            console.log('veio aqui')
             this.setDisplay(element, valueDisplay)
         })
     }
@@ -79,5 +76,6 @@ class BlogController{
         this._divsNavigation.forEach((divNavs)=>{
             divNavs.style.display ='none'
         });
+        document.querySelector('.divs-navigation').style.display = 'none';
     }
 };
