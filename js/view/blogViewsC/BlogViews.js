@@ -11,12 +11,14 @@ class BlogViews{
             logo: 0,    
             title:0
         };
+        this._colorToRevert;
         this._color;
         this._colorBody;
         this.initialize();
     }
     initialize(){
         this.efectColor();
+        
     }
     //Método contém as regras para aplicação do efeito de cores
     efectColor(){
@@ -32,8 +34,10 @@ class BlogViews{
             this.addEvent(divEl, 'mouseenter',()=>{
                 this.addEventsAndClass(divEl,this._classToElements[index],this._classToBody[index]);
                 index = this.IncrementValue(index, 5);
-                this.addColorInElement(document.querySelectorAll('.linksNav > a'), 'white');
-                this.addColorInElement(document.querySelector('.logotype'),'white');
+                if(this._colorToRevert == undefined ){
+                    this._colorToRevert = 'black';
+                }
+                this.choiceColorWords();
             });
         });
     }
@@ -57,6 +61,9 @@ class BlogViews{
             element.forEach( el =>{
                 el.style.color = color;
             });
+        }else if(element[0]){
+            console.log(element)
+            element[0].style.color = color;
         }else{
             element.style.color = color;
         }
@@ -80,7 +87,7 @@ class BlogViews{
                     indTitle = this.IncrementValue(indTitle, 5);
                 });
              };
-
+            
         });
     }
     //método incrementa +1 no valor da variável
@@ -106,6 +113,8 @@ class BlogViews{
             if(!noColorBody.includes(element.localName)){
                 this.addEvent(element, 'mouseleave',()=>{
                 this.removeClassCollors(element, classBody);
+                console.log(this._colorToRevert)
+                this.choiceColorWords('continue');
                 });
             }else{
                 this.addEvent(element, 'mouseleave',()=>{
@@ -115,6 +124,54 @@ class BlogViews{
         }else{
         }
     };
+    getAllWords(){
+        let allP = document.querySelectorAll('p');
+        let allLinks= document.querySelectorAll('a');
+        let allH3 = document.querySelectorAll('h3');
+        let allSpanDataUser= document.querySelectorAll('span');
+        let logo = document.querySelectorAll('.logotype');
+        let title = document.querySelectorAll('.title');
+        
+        let allWords =[allH3,allLinks, allP,allSpanDataUser,logo, title];
+        return allWords;
+    }
+    choiceColorWords(deep = false){
+        if(deep){
+            this._colorToRevert = 'white';
+        }else if(deep = 'continue'){
+            
+        }else{
+            this._colorToRevert = 'black'
+        }
+        let allWords = this.getAllWords();
+        console.log( this._colorToRevert)
+        switch(this._colorToRevert){
+            case 'black':
+                this.addColorAllElements(allWords, 'white');
+                this._colorToRevert = 'white';
+                break;
+            case 'white':
+                this.addColorAllElements(allWords, 'black');  
+                this._colorToRevert = 'black';         
+                break;
+        }
+              
+    }
+    //aqui todas as letras recebem cor 
+    addColorAllElements(element,cl){
+        element.forEach((el)=>{
+            el.forEach( (e)=>{
+                if(e.length > 1){
+                    e.forEach((words)=>{
+                        words.style.color = cl;
+                    });
+                }else{
+                    
+                    e.style.color = cl;
+                }
+            });
+        });
+    }
     //método adiciona um evento ao elemento
     addEvent(element, event,fn){
         if( element.length > 1){
@@ -128,16 +185,15 @@ class BlogViews{
     //método remove a classe de cor do elemento
     removeClassCollors(element,corBody=false){
         if(corBody){
+            console.log('veio')
             element.classList.remove(this.color);
             document.querySelector('body').classList.remove(corBody);
-            this.addColorInElement(document.querySelectorAll('.linksNav > a'), 'deepskyblue');
-            this.addColorInElement(document.querySelector('.logotype'),'deepskyblue');
         
         }else{
             element.classList.remove(this.color)
             let child = element.children[0];
             if(child){
-                element.children[0].style.color = 'deepskyblue';
+                element.children[0].style.color = 'black';
             }
         }
     }
@@ -145,14 +201,14 @@ class BlogViews{
     addClassCollors(element,classEl, classBody=false){
         if(element){
             if(element.localName == 'div'){
+                this.addEventAndRemoveClass(element,classBody); 
                 element.classList.add(classEl);
                 document.querySelector('body').classList.add(classBody);
                 this.color = classEl;
                 this.colorBody = classBody;
-                this.addEventAndRemoveClass(element,classBody);
+                
     
             }else{
-                let child = element.children[0];
                 element.classList.add(classEl);
                 this.color = classEl;
                 this.indexColors.linksNav++
