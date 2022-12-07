@@ -1,0 +1,1 @@
+let controlsBlog = new BlogController();
