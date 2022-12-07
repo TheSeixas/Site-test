@@ -54,6 +54,10 @@ class BlogController{
         }
         
     }
+    //método adiciona efeito hover e estilos
+    hoverEfect(element){
+        
+    }
     //aqui acontece a troca do valor do display sem validação
     changeDisplay(element,value){
         element.style.display = value;

@@ -84,7 +84,6 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left: 2px solid white;
     
 }
 .navigation ul{
@@ -267,18 +266,27 @@ h1{
     background-color:transparent;
     margin: 2% 0%;
 }
-.user-coment:hover, .content-destac:hover, .post:hover{
+.ef-hover{
     background-color: whitesmoke;
     transform: scale(1.2);
     border-radius: 10px;
     z-index: 1;
-    color: black
+    color: black;
+}
+.ef-hover-titles{
+    background-color: whitesmoke;
+    transform: scale(1.2);
+    border-radius: 10px;
+    z-index: 1;
+    color: black;
+    font-size: 1.2rem;
+    padding: 5px;
 }
 .data-user{
     width: 90%;
     height: 25%;
     display: flex;
-    justify-content: start;
+    justify-content: start;     
     align-items: center;
     padding: 2% 0%;
 }
@@ -473,4 +481,7 @@ chaves e links de navegação da página */
 }
 .bOrange{
     background-color: rgb(219, 133, 35,0.4);
+}
+.test{
+    color: red;
 }

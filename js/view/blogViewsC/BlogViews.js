@@ -17,15 +17,17 @@ class BlogViews{
         this.initialize();
     }
     initialize(){
-        this.efectColor();
+        this.efects();
         
     }
     //Método contém as regras para aplicação do efeito de cores
-    efectColor(){
+    efects(){
         
         this.starterLinksNav();
         this.starterLogoAndTitle();
         this.starterDivs();
+        this.initHoverInElementsOfDivsNavigation();
+        this.gettAndHideTexts()
     };
     //método adiciona efeito de cores as divs de navegação
     starterDivs(){
@@ -62,7 +64,6 @@ class BlogViews{
                 el.style.color = color;
             });
         }else if(element[0]){
-            console.log(element)
             element[0].style.color = color;
         }else{
             element.style.color = color;
@@ -113,7 +114,6 @@ class BlogViews{
             if(!noColorBody.includes(element.localName)){
                 this.addEvent(element, 'mouseleave',()=>{
                 this.removeClassCollors(element, classBody);
-                console.log(this._colorToRevert)
                 this.choiceColorWords('continue');
                 });
             }else{
@@ -144,7 +144,6 @@ class BlogViews{
             this._colorToRevert = 'black'
         }
         let allWords = this.getAllWords();
-        console.log( this._colorToRevert)
         switch(this._colorToRevert){
             case 'black':
                 this.addColorAllElements(allWords, 'white');
@@ -185,7 +184,6 @@ class BlogViews{
     //método remove a classe de cor do elemento
     removeClassCollors(element,corBody=false){
         if(corBody){
-            console.log('veio')
             element.classList.remove(this.color);
             document.querySelector('body').classList.remove(corBody);
         
@@ -194,6 +192,8 @@ class BlogViews{
             let child = element.children[0];
             if(child){
                 element.children[0].style.color = 'black';
+            }else if(element.localName == 'h1' || element.localName == 'span'){
+                element.style.color = 'black';
             }
         }
     }
@@ -209,15 +209,112 @@ class BlogViews{
                 
     
             }else{
+                this.addEventAndRemoveClass(element);
                 element.classList.add(classEl);
                 this.color = classEl;
                 this.indexColors.linksNav++
                 if(element.localName == "li"){
                     element.children[0].style.color = 'white';
+                }else if(element.localName == 'span' || element.localName == 'h1'){
+                    element.style.color = 'white';
                 }
-                this.addEventAndRemoveClass(element);
+                
             }
         }
     }
-
+    //método chama todos os efeitos hover das divis de navegação
+    initHoverInElementsOfDivsNavigation(){
+        let posts = document.querySelectorAll('.post');
+        let distacs = document.querySelectorAll('.content-destac');
+        let coments = document.querySelectorAll('.user-coment');
+        let titleInputComentary = document.querySelector('.comentarios h3');
+        let titleLastComents = document.querySelector('.users-comentary h3');
+        this.mForEachToHover(posts,'ef-hover','p');
+        this.mForEachToHover(distacs,'ef-hover','a');
+        this.mForEachToHover(coments,'ef-hover', 'p');
+        this.mForEachToHover(coments,'ef-hover', 'a');
+        this.mForEachToHover(coments,'ef-hover', 'span');
+        this.mForEachToHover(coments,'ef-hover', 'ion-icon');
+        this.addHover(titleInputComentary,'ef-hover-titles');
+        this.addHover(titleLastComents,'ef-hover-titles');
+    }
+    //adiciona todos os filhos do elemento dentro do método que adiciona o efeito hover
+    mForEachToHover(element,clEfect, son){
+        element.forEach((el)=>{
+            if(el){
+                this.addHover(el,clEfect,son);
+            }
+        });
+    }
+    //adiciona o efeito hover no elemento
+    addHover(element, clEfect,son=false){
+        if(son){
+            this.addEvent(element, 'mouseenter',()=>{
+                this.removeHover(element,clEfect, son);
+                this.hoverEfectToElements(element,clEfect, son)
+                
+            });
+        }else{
+            this.addEvent(element, 'mouseenter',()=>{
+                this.removeHover(element,clEfect);
+                this.hoverEfectToElements(element,clEfect)
+                
+            });
+        }
+        
+    }
+    //remove o efeito hover do elemento 
+    removeHover(element,clEfect, son=false){
+        if(son){
+            this.addEvent(element, 'mouseleave',()=>{
+                this.removeHoverInElement(element,clEfect, son);
+            });
+        }else{
+            this.addEvent(element, 'mouseleave',()=>{
+                this.removeHoverInElement(element,clEfect);
+            });
+        }
+    };
+    //adiciona efeito hover e estilo
+    hoverEfectToElements(element,clEfect, son=false){
+        if(son){
+            element.classList.add(clEfect);
+            element.querySelector(son).style.color = 'black';
+        }else{
+            element.classList.add(clEfect);
+            element.style.color = 'black';
+        }      
+    }
+    //remove efeito hover e estilo
+    removeHoverInElement(element, clEfect,son=false){
+        if(son){
+            element.classList.remove(clEfect);
+            element.querySelector(son).style.color = 'white';
+        }else{
+            element.classList.remove(clEfect);
+            element.style.color = 'white';
+        }
+    }
+    //cria um erray dos textos q receberão elipisis caso excedam tamanho de caracteres e adiciona aos metodos que farão o resto
+    gettAndHideTexts(){
+        let postP = document.querySelectorAll('.post p');
+        this.mForEachToText(postP,56)
+        let txtDestA = document.querySelectorAll('.content-destac a');
+        this.mForEachToText(txtDestA,56)
+    }
+    //que esconde o texto com elipsis
+    hideText(el, maxL){    
+        let textLength = el.innerHTML.length;
+        if( textLength > maxL){
+            let newText = el.innerHTML.slice(0,(maxL-3))+'...';
+            el.innerHTML = newText;
+            
+        }
+    }
+    //percorre o elemento pra adicionar cada filho ao método que esconde o texto com elipsis
+    mForEachToText(element,maxL){
+        element.forEach((el)=>{
+            this.hideText(el, maxL)
+        });
+    }
 }
